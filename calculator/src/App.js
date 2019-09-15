@@ -16,6 +16,7 @@ class App extends React.Component {
     this.addToInput = this.addToInput.bind(this)
     this.addZeroToInput = this.addZeroToInput.bind(this)
     this.addDecimal = this.addDecimal.bind(this)
+    this.clearInput = this.clearInput.bind(this)
   }
 
   addToInput(val) {
@@ -37,6 +38,10 @@ class App extends React.Component {
     if (this.state.input.indexOf(".") === -1) {
       this.setState({input: this.state.input + val})
     }
+  }
+
+  clearInput(){
+    this.setState({input: ""})
   }
 
   render() {
@@ -71,7 +76,7 @@ class App extends React.Component {
             <Button num="-"/>    
           </div>
           <div className="row">
-            <ClearButton />
+            <ClearButton handleClear={this.clearInput} />
           </div>
       </div>
       </div>
