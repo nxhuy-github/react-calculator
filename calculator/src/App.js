@@ -17,6 +17,8 @@ class App extends React.Component {
     this.addZeroToInput = this.addZeroToInput.bind(this)
     this.addDecimal = this.addDecimal.bind(this)
     this.clearInput = this.clearInput.bind(this)
+    this.add = this.add.bind(this)
+    this.evaluate = this.evaluate.bind(this)
   }
 
   addToInput(val) {
@@ -44,6 +46,20 @@ class App extends React.Component {
     this.setState({input: ""})
   }
 
+  add(val){
+    this.state.prevNum = this.state.input
+    this.setState({input: ""})
+    this.state.operator = "plus"
+  }
+
+  evaluate(){
+    this.state.currNum = this.state.input
+    if (this.state.operator === "plus") {
+      let result = parseFloat(this.state.prevNum) + parseFloat(this.state.currNum)
+      this.setState({input: String(result)})
+    }
+  }
+
   render() {
     return (
       <div className="App">
@@ -67,12 +83,12 @@ class App extends React.Component {
             <Button handleClick={this.addToInput} num="1"/>
             <Button handleClick={this.addToInput} num="2"/>
             <Button handleClick={this.addToInput} num="3"/>
-            <Button num="+"/>    
+            <Button handleClick={this.add} num="+"/>    
           </div>
           <div className="row">
             <Button handleClick={this.addDecimal} num="."/>
             <Button handleClick={this.addZeroToInput} num="0"/>
-            <Button num="="/>
+            <Button handleClick={this.evaluate} num="="/>
             <Button num="-"/>    
           </div>
           <div className="row">
