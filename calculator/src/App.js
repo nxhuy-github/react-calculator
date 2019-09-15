@@ -18,6 +18,7 @@ class App extends React.Component {
     this.addDecimal = this.addDecimal.bind(this)
     this.clearInput = this.clearInput.bind(this)
     this.add = this.add.bind(this)
+    this.subtract = this.subtract.bind(this)
     this.evaluate = this.evaluate.bind(this)
   }
 
@@ -46,16 +47,26 @@ class App extends React.Component {
     this.setState({input: ""})
   }
 
-  add(val){
+  add(){
     this.state.prevNum = this.state.input
     this.setState({input: ""})
     this.state.operator = "plus"
+  }
+
+  subtract(){
+    this.state.prevNum = this.state.input
+    this.setState({input: ""})
+    this.state.operator = "subtract"
   }
 
   evaluate(){
     this.state.currNum = this.state.input
     if (this.state.operator === "plus") {
       let result = parseFloat(this.state.prevNum) + parseFloat(this.state.currNum)
+      this.setState({input: String(result)})
+    }
+    if (this.state.operator === "subtract") {
+      let result = parseFloat(this.state.prevNum) - parseFloat(this.state.currNum)
       this.setState({input: String(result)})
     }
   }
@@ -89,7 +100,7 @@ class App extends React.Component {
             <Button handleClick={this.addDecimal} num="."/>
             <Button handleClick={this.addZeroToInput} num="0"/>
             <Button handleClick={this.evaluate} num="="/>
-            <Button num="-"/>    
+            <Button handleClick={this.subtract} num="-"/>    
           </div>
           <div className="row">
             <ClearButton handleClear={this.clearInput} />
